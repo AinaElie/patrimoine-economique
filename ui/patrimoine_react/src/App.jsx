@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import data from './../../../data/data.json';
+import { Table } from 'react-bootstrap';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1> {data.possesseur.nom} </h1>
+      <Table bordered>
+        <thead striped>
+          <tr>
+            <th>Libelle</th>
+            <th>Valeur</th>
+            <th>Date de Debut</th>
+            <th>Date de Fin</th>
+            <th>Taux d'amortissement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className='border-1'>{data.possessions.map(element => (
+              <p className='py-2 border-2'>{element.libelle} </p>
+            ))}</td>
+            <td className='border-1'>{data.possessions.map(element => (
+              <p className='py-2 border-2'>{Math.abs(element.valeur) || Math.abs(element.valeurConstante)}</p>
+            ))}</td>
+            <td className='border-1'>{data.possessions.map(element => (
+              <p className='py-2 border-2'>{new Date(element.dateDebut).toISOString().split('T')[0]}</p>
+            ))}</td>
+            <td className='border-1'>{data.possessions.map(element => (
+              <p className='py-2 border-2'>{element.dateFin || "..."}</p>
+            ))}</td>
+            <td className='border-1'>{data.possessions.map(element => (
+              <p className='py-2 border-2'>{element.tauxAmortissement || 0}</p>
+            ))}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   )
 }
-
-export default App
