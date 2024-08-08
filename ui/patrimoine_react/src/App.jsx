@@ -1,12 +1,15 @@
 import React from 'react'
 import data from './../../../data/data.json';
 import { Table } from 'react-bootstrap';
+import './App.css';
 
 export default function App() {
   return (
-    <div>
-      <h1> {data.possesseur.nom} </h1>
-      <Table bordered>
+    <div className='container'>
+      <div className='py-2 d-flex justify-content-around align-items-center'>
+        <h1>Patrimoine de : {data.possesseur.nom} </h1>
+      </div>
+      <Table bordered className='table'>
         <thead striped>
           <tr>
             <th>Libelle</th>
