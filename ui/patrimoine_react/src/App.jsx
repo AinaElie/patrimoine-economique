@@ -3,7 +3,7 @@ import data from './../../../data/data.json';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import './App.css';
-import Result from './Components/Result';
+import Result, {valeurActuelle} from './Components/Result';
 
 export default function App() {
   const [value, setValue] = useState("");
@@ -28,6 +28,7 @@ export default function App() {
             <th>Date de Debut</th>
             <th>Date de Fin</th>
             <th>Taux d'amortissement</th>
+            <th>Valeur Actuelle</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +47,9 @@ export default function App() {
             ))}</td>
             <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{element.tauxAmortissement || 0}</p>
+            ))}</td>
+            <td>{valeurActuelle.map(element => (
+              <p className='py-2 border-2'>{element.toFixed(0)}</p>
             ))}</td>
           </tr>
         </tbody>
