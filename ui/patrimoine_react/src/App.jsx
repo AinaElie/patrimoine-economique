@@ -51,8 +51,8 @@ export default function App() {
         </tbody>
       </Table>
 
-      <form onSubmit={handleDate} className='py-5'>
-        <h3>Valeur de la Patrimoine</h3>
+      <form onSubmit={handleDate} className='py-5 container'>
+        <h3>Selectionner une date : </h3>
         <input type="date" onChange={(event) => setValue(event.target.value)} value={value} className='py-2 px-4' />
         <Button variant="primary" type='submit' className='mx-3'>Valider</Button>
       </form>
