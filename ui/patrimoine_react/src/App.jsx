@@ -32,19 +32,19 @@ export default function App() {
         </thead>
         <tbody>
           <tr>
-            <td className='border-1'>{data.possessions.map(element => (
+            <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{element.libelle} </p>
             ))}</td>
-            <td className='border-1'>{data.possessions.map(element => (
+            <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{Math.abs(element.valeur) || Math.abs(element.valeurConstante)}</p>
             ))}</td>
-            <td className='border-1'>{data.possessions.map(element => (
+            <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{new Date(element.dateDebut).toISOString().split('T')[0]}</p>
             ))}</td>
-            <td className='border-1'>{data.possessions.map(element => (
+            <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{element.dateFin || "..."}</p>
             ))}</td>
-            <td className='border-1'>{data.possessions.map(element => (
+            <td>{data.possessions.map(element => (
               <p className='py-2 border-2'>{element.tauxAmortissement || 0}</p>
             ))}</td>
           </tr>
