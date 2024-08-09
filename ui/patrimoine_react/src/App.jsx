@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import data from './../../../data/data.json';
 import { Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import './App.css';
+import Result from './Components/Result';
 
 export default function App() {
+  const [value, setValue] = useState("");
+  const [date, setDate] = useState("");
+
+  function handleDate(event) {
+    event.preventDefault();
+    setValue("");
+    setDate(value);
+  }
+
   return (
     <div className='container'>
       <div className='py-2 d-flex justify-content-around align-items-center'>
@@ -39,6 +50,13 @@ export default function App() {
           </tr>
         </tbody>
       </Table>
+
+      <form onSubmit={handleDate} className='py-5'>
+        <h3>Valeur de la Patrimoine</h3>
+        <input type="date" onChange={(event) => setValue(event.target.value)} value={value} className='py-2 px-4' />
+        <Button variant="primary" type='submit' className='mx-3'>Valider</Button>
+      </form>
+      <Result value={date} />
     </div>
   )
 }
