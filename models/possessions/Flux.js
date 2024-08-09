@@ -43,7 +43,7 @@ export default class Flux extends Possession {
       this.valeur += nombreDeMois(this.dateDebut, date, this.jour) * this.valeurConstante;
       return this.valeur;
     } else {
-      return this.valeurConstante = 0;
+      return this.valeur = 0;
     }
   }
 }
