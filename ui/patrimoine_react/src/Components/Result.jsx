@@ -16,7 +16,6 @@ const bienMateriel = new BienMateriel(john, "Effet vestimentaire", 1_000_000, da
 
 const possessions = [macBookPro,salaire,traindevie,bienMateriel];
 
-
 const johnPatrimoine  = new Patrimoine(john,possessions);
 
 export default function Result({ value }) {
