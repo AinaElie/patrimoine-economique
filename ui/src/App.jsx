@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import data from './../../../data/data.json';
+import data from './../../data/data.json';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import './App.css';

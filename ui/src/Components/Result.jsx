@@ -1,9 +1,9 @@
 import React from 'react'
-import Patrimoine from "./../../../../models/Patrimoine.js";
-import Personne from "./../../../../models/Personne.js";
-import Flux from "./../../../../models/possessions/Flux.js";
-import Possession from "./../../../../models/possessions/Possession.js";
-import BienMateriel from "./../../../../models/possessions/BienMateriel.js"
+import Patrimoine from "./../../../models/Patrimoine.js";
+import Personne from "./../../../models/Personne.js";
+import Flux from "./../../../models/possessions/Flux.js";
+import Possession from "./../../../models/possessions/Possession.js";
+import BienMateriel from "./../../../models/possessions/BienMateriel.js"
 
 const john = new Personne("John Doe");
 
