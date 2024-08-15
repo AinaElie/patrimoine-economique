@@ -1,10 +1,31 @@
 import React from 'react'
-import ListPossession from './Header/ListPossession'
+import Possession from './Header/Possession'
+import UpdatePossession from "./Pages/UpdatePossession";
+import CreatePossession from './Pages/CreatePossession'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Menu from './Header/Menu';
+
+const ROUTER = createBrowserRouter([
+  {
+    path: "/possession",
+    element: <Possession/>,
+  },
+  {
+    path: "/possession/create",
+    element: <CreatePossession />
+  },
+  {
+    path: "/possession/:libelle/update",
+    element: <UpdatePossession />
+  },
+  {
+    path: "*",
+    element: <Menu />
+  }
+]);
 
 export default function App() {
   return (
-    <div>
-      <ListPossession />
-    </div>
+    <RouterProvider router={ROUTER} />
   )
 }
