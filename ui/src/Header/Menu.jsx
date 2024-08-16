@@ -23,7 +23,7 @@ export default function Menu() {
 
     return (
         <>
-            <h1 className='text-center text-3xl py-9'>Bienvenu : {data.possesseur.nom} </h1>
+            <h1 className='text-center text-3xl py-9'>Bienvenu : {data.data.possesseur.nom} </h1>
             <div className='flex justify-center items-center'>
                 <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="patrimoine" > Patrimoine </Link>
                 <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="possession"> Possessions </Link>
