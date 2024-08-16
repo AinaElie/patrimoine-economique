@@ -24,7 +24,7 @@ export default function ListPossession() {
     return (
         <>
             <div>
-                <h1 className='text-center text-3xl py-9'>Liste des possessions de : {data.possesseur.nom} </h1>
+                <h1 className='text-center text-3xl py-9'>Liste des possessions de : {data.data.possesseur.nom} </h1>
             </div>
             <div class="mx-8 my-4 shadow-md rounded-lg overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 border">
@@ -47,7 +47,7 @@ export default function ListPossession() {
                         </tr>
                     </thead>
                     <tbody className='bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700'>
-                        {data.possessions.map((possession, index) => (
+                        {data.data.possessions.map((possession, index) => (
                             <tr key={index} className="hover:bg-gray-100">
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white" >{possession.libelle}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
