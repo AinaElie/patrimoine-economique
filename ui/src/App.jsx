@@ -4,6 +4,7 @@ import UpdatePossession from "./Pages/UpdatePossession";
 import CreatePossession from './Pages/CreatePossession'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Menu from './Header/Menu';
+import Patrimoine from './Header/Patrimoine';
 
 const ROUTER = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/possession/:libelle/update",
     element: <UpdatePossession />
+  },
+  {
+    path: "/patrimoine",
+    element: <Patrimoine />
   },
   {
     path: "*",
