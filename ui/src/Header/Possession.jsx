@@ -9,7 +9,7 @@ export default function Possession() {
         <ListPossession/>
         {/* <ButtonCreate/> */}
         <Button print={"Create Possession"} target={"create"} />
-        <Button print={"Menu"} target={"*"} />
+        <Button print={"Menu"} target={"/"} />
     </div>
   )
 }
