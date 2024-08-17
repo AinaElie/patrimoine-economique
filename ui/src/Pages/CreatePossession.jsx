@@ -19,22 +19,23 @@ export default function CreatePossession() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/possession/create', {
+            let response = await fetch('http://localhost:5000/possession/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: data,
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
+                console.log("Possession ajouté");
                 alert('Possession ajoutée avec succès !');
             } else {
-                alert('Erreur lors de l\'ajout de la possession.');
-            }
+                throw new Error('Erreur lors de l\'ajout du Possession')
+            };
         } catch (error) {
             console.error('Erreur:', error);
-            alert('Erreur lors de la connexion au serveur.');
+            alert(error.message);
         }
     };
 
