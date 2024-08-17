@@ -1,12 +1,15 @@
 import React from 'react'
 import ListPossession from '../Pages/ListPossession'
-import ButtonCreate from '../Components/ButtonCreate'
+import Button from '../Components/Button'
+// import ButtonCreate from '../Components/ButtonCreate'
 
 export default function Possession() {
   return (
     <div>
         <ListPossession/>
-        <ButtonCreate/>
+        {/* <ButtonCreate/> */}
+        <Button print={"Create Possession"} target={"create"} />
+        <Button print={"Menu"} target={"*"} />
     </div>
   )
 }

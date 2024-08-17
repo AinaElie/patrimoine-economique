@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Button from '../Components/Button';
 
 export default function CreatePossession() {
     const [formData, setFormData] = useState({
@@ -61,6 +62,7 @@ export default function CreatePossession() {
                 </div>
                 <button type="submit" className="bg-blue-600 py-4 px-7 rounded-xl text-white">Creer</button>
             </form>
+            <Button print={"Retour"} target={"/possession"} />
         </div>
     )
 }

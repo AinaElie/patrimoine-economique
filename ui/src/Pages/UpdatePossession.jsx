@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Components/Button'
 
 export default function UpdatePossession() {
   return (
@@ -15,6 +16,7 @@ export default function UpdatePossession() {
         </div>
         <button type="submit" className="bg-blue-600 py-4 px-7 rounded-xl text-white">Update</button>
       </form>
+      <Button print={"Retour"} target={"/possession"} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import Button from '../Components/Button';
 
 export default function Menu() {
     const [data, setData] = useState(null);
@@ -25,8 +26,10 @@ export default function Menu() {
         <>
             <h1 className='text-center text-3xl py-9'>Bienvenu : {data.data.possesseur.nom} </h1>
             <div className='flex justify-center items-center'>
-                <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="patrimoine" > Patrimoine </Link>
-                <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="possession"> Possessions </Link>
+                {/* <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="patrimoine" > Patrimoine </Link>
+                <Link className='bg-gray-600 py-4 px-8 rounded-2xl mx-4 text-white' to="possession"> Possessions </Link> */}
+                <Button print={"Patrimoine"} target={"patrimoine"} />
+                <Button print={"Possessions"} target={"possession"} />
             </div>
         </>
     )
