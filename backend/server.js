@@ -1,23 +1,22 @@
 import express from 'express';
-// import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import { readFile, writeFile } from '../data/index.js';
-import Possession from '../models/possessions/Possession.js';
 import Personne from '../models/Personne.js';
 
 const app = express();
 const port = 5000;
 
 app.use(cors());
+app.use(express.json())
 
 const getDataFromJson = async () => {
   const fileData = fileURLToPath(import.meta.url);
   const dirname = path.dirname(fileData);
   const filePath = path.join(dirname, '../data/data.json');
-  const folderData = readFile(filePath, 'utf8');
-  return folderData
+  const data = readFile(filePath, 'utf8');
+  return data
 };
 
 app.get('/possession', async (req, res) => {
@@ -35,24 +34,23 @@ app.post('/possession/create', async (req, res) => {
     const dirname = path.dirname(fileData);
     const filePath = path.join(dirname, '../data/data.json');
 
-    // const folderData = readFile(filePath, 'utf8');
+    const dataPrev = readFile(filePath, 'utf8');
 
     const request = req.body;
     const possesseur = new Personne("John Doe");
-    const newPossession = new Possession(possesseur, request.libelle, request.valeur, request.dateDebut, null, request.tauxAmortissement);
     
-    // const possessionObject = {
-    //   possesseur: newPossession.possesseur,
-    //   libelle: newPossession.libelle,
-    //   valeur: newPossession.valeur,
-    //   dateDebut: newPossession.dateDebut,
-    //   dateFin: null,
-    //   tauxAmortissement: newPossession.tauxAmortissement
-    // };
+    const newPossession = {
+      possesseur: possesseur,
+      libelle: request.libelle,
+      valeur: request.valeur,
+      dateDebut: request.dateDebut,
+      dateFin: null,
+      tauxAmortissement: request.tauxAmortissement
+    };
 
-    // folderData.data.possessions.push(possessionObject);
-
-    writeFile(filePath, newPossession);
+    (await dataPrev).data.possessions.push(newPossession)
+    
+    writeFile(filePath, (await dataPrev).data.possessions);
 
     res.status(201).send('Nouvelle possession ajoutée avec succès.');
   } catch (error) {
