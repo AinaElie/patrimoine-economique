@@ -54,7 +54,7 @@ export default function ListPossession() {
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{"..."}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 'N/A'}
+                                    {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0+'%'}
                                 </td>
                                 <td scope="col" className="py-3 px-6 text-lg text-gray-700 text-left flex items-center">
                                     <Link to=":libelle/update" className='bg-blue-600 px-4 py-2 mr-2 text-white rounded-lg'>Edit</Link>

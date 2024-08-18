@@ -3,7 +3,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import { readFile, writeFile } from '../data/index.js';
-import Personne from '../models/Personne.js';
 
 const app = express();
 const port = 5000;
@@ -37,20 +36,25 @@ app.post('/possession/create', async (req, res) => {
     const dataPrev = readFile(filePath, 'utf8');
 
     const request = req.body;
-    const possesseur = new Personne("John Doe");
-    
+    const possesseur = (await dataPrev).data.possesseur;
+
     const newPossession = {
       possesseur: possesseur,
       libelle: request.libelle,
-      valeur: request.valeur,
-      dateDebut: request.dateDebut,
+      valeur: parseInt(request.valeur),
+      dateDebut: new Date(request.dateDebut),
       dateFin: null,
-      tauxAmortissement: request.tauxAmortissement
+      tauxAmortissement: parseInt(request.tauxAmortissement)
     };
 
     (await dataPrev).data.possessions.push(newPossession)
-    
-    writeFile(filePath, (await dataPrev).data.possessions);
+
+    let newPatrimoine = {
+      "possesseur": possesseur,
+      "possessions": (await dataPrev).data.possessions
+    }
+
+    writeFile(filePath, newPatrimoine);
 
     res.status(201).send('Nouvelle possession ajoutée avec succès.');
   } catch (error) {
