@@ -37,10 +37,10 @@ export default function ListPossession() {
                                 Valeur
                             </th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left">
-                                Date de début
+                                Date début
                             </th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left">
-                                Date Fin
+                                Date fin
                             </th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left">Taux d'amortissement</th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left"></th>
@@ -53,11 +53,12 @@ export default function ListPossession() {
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{"..."}</td>
-                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0+'%'}
+                                <td className="py-4 px-8 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}
                                 </td>
                                 <td scope="col" className="py-3 px-6 text-lg text-gray-700 text-left flex items-center">
-                                    <Link to=":libelle/update" className='bg-blue-600 px-4 py-2 mr-2 text-white rounded-lg'>Edit</Link>
+                                    <Link to={`:${possession.libelle}/update`} className='bg-blue-600 px-4 py-2 mr-2 text-white rounded-lg'>Edit</Link>
+                                    {/* <Link to=":libelle/update" className='bg-blue-600 px-4 py-2 mr-2 text-white rounded-lg'>Edit</Link> */}
                                     <Link className='px-4 py-2 bg-red-600 text-white rounded-lg'>Close</Link>
                                 </td>
                             </tr>
