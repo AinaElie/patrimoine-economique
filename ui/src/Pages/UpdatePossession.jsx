@@ -27,22 +27,6 @@ export default function UpdatePossession() {
     }));
 };
 
-  // useEffect(() => {
-  //   const fetchPossession = async () => {
-  //     try {
-  //       const response = await fetch(`/possession/${encodeURIComponent(libelle)}`);
-  //       if (!response.ok) {
-  //         throw new Error(`Erreur HTTP! statut: ${response.status}`);
-  //       }
-  //       setPossession(response);
-  //     } catch (error) {
-  //       console.error('Erreur lors du chargement de la possession:', error);
-  //     }
-  //   };
-
-  //   fetchPossession();
-  // }, [libelle]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
