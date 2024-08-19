@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import { readFile, writeFile } from '../data/index.js';
@@ -63,43 +62,55 @@ app.post('/possession/create', async (req, res) => {
   }
 });
 
-app.get('/possession/:libelle', (req, res) => {
-  const { libelle } = req.params;
+app.put('/possession/:libelle/update', async (req, res) => {
+  try {
+    const fileData = fileURLToPath(import.meta.url);
+    const dirname = path.dirname(fileData);
+    const filePath = path.join(dirname, '../data/data.json');
 
-  const fileData = fileURLToPath(import.meta.url);
-  const dirname = path.dirname(fileData);
-  const filePath = path.join(dirname, '../data/data.json');
+    const request = req.body;
+    const { libelle } = req.params;
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ message: 'Erreur lors de la lecture du fichier.' });
+    let vide = "";
+
+    const libellePrev = libelle.split('').slice(1, libelle.length);
+    for (let index = 0; index < libellePrev.length; index++) {
+      const element = libellePrev[index];
+      vide += element;
     }
 
-    try {
-      const jsonData = JSON.parse(data);
-      const possession = jsonData.possessions.find(p => p.libelle === libelle);
-      if (possession) {
-        return res.json(possession);
-      } else {
-        return res.status(404).json({ message: 'Possession non trouvée.' });
-      }
-    } catch (parseErr) {
-      return res.status(500).json({ message: 'Erreur lors de l\'analyse du fichier JSON.' });
+    const dataPrev = readFile(filePath);
+    const possesseur = (await dataPrev).data.possesseur;
+    const possession = (await dataPrev).data.possessions.filter(p => p.libelle === vide);
+    const AllPossession = (await dataPrev).data.possessions.filter(p => p.libelle !== vide);
+
+    let newPossession = {
+      possesseur: possesseur,
+      libelle: request.libelle,
+      valeur: parseInt(possession[0].valeur),
+      dateDebut: new Date(possession[0].dateDebut),
+      dateFin: new Date(request.dateFin),
+      tauxAmortissement: parseInt(possession[0].tauxAmortissement)
     }
-  });
-});
 
-// app.put('/possession/:libelle/update', (req, res) => {
-//     const newData = req.body;
-//     const {libelle} = req.params;
+    AllPossession.push(newPossession);
 
-//     const fileData = fileURLToPath(import.meta.url);
-//     const dirname = path.dirname(fileData);
-//     const filePath = path.join(dirname, '../data/data.json');
+    res.json({
+      "new Possession" : newPossession,
+      "data": AllPossession
+    });
 
-//     const dataPrev = readFile(filePath);
-//     res.json(dataPrev)
-// });
+    const newPatrimoine = {
+      "possesseur": possesseur,
+      "possessions": AllPossession
+    }
+
+    writeFile(filePath, newPatrimoine);
+
+  } catch (err) {
+    return res.status(500).json({ message: 'Erreur lors de l\'analyse du fichier JSON.' });
+  }
+})
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
