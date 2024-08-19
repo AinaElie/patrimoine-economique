@@ -89,18 +89,17 @@ app.get('/possession/:libelle', (req, res) => {
   });
 });
 
-app.put('/possession/:libelle/update', (req, res) => {
-    const newData = req.body;
-    const {libelle} = req.params;
+// app.put('/possession/:libelle/update', (req, res) => {
+//     const newData = req.body;
+//     const {libelle} = req.params;
 
-    const fileData = fileURLToPath(import.meta.url);
-    const dirname = path.dirname(fileData);
-    const filePath = path.join(dirname, '../data/data.json');
+//     const fileData = fileURLToPath(import.meta.url);
+//     const dirname = path.dirname(fileData);
+//     const filePath = path.join(dirname, '../data/data.json');
 
-    const dataPrev = readFile(filePath);
-    res.json(dataPrev)
-});
-
+//     const dataPrev = readFile(filePath);
+//     res.json(dataPrev)
+// });
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
