@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import Possession from '../../../models/possessions/Possession.js';
 
 export default function ListPossession() {
     const [data, setData] = useState(null);
@@ -27,7 +26,7 @@ export default function ListPossession() {
             <div>
                 <h1 className='text-center text-3xl py-9'>Liste des possessions de : {data.data.possesseur.nom} </h1>
             </div>
-            <div className="mx-8 my-4 shadow-md rounded-lg overflow-hidden">
+            <div className="mx-8 my-4 shadow-md rounded-xl overflow-hidden border-2">
                 <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 border">
                     <thead className="bg-gray-100 dark:bg-gray-700">
                         <tr>
@@ -53,7 +52,7 @@ export default function ListPossession() {
                                 <td className="py-4 px-6 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{possession.libelle}</td>
                                 <td className="py-4 px-6 text-lg font-bold text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
-                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{"..."}</td>
+                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{possession.dateFin === null ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
                                 <td className="py-4 px-8 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}
                                 </td>
