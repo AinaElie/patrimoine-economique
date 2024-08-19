@@ -1,7 +1,10 @@
 import React from 'react'
+import LineChart from '../Pages/LineChart'
 
 export default function Patrimoine() {
   return (
-    <div>Patrimoine</div>
+    <div>
+      <LineChart />
+    </div>
   )
 }
