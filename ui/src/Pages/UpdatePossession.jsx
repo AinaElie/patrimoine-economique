@@ -47,6 +47,7 @@ export default function UpdatePossession() {
       }
     } catch (error) {
       console.error('Il y a eu une erreur lors de la mise à jour:', error);
+      alert("Erreur, Veuiller ressayer");
     }
   };
 

@@ -68,49 +68,37 @@ app.put('/possession/:libelle/update', async (req, res) => {
     const dirname = path.dirname(fileData);
     const filePath = path.join(dirname, '../data/data.json');
 
-    const request = req.body;
+    const donnes = req.body;
     const { libelle } = req.params;
 
-    let vide = "";
+    let newLibelle = "";
 
     const libellePrev = libelle.split('').slice(1, libelle.length);
     for (let index = 0; index < libellePrev.length; index++) {
       const element = libellePrev[index];
-      vide += element;
+      newLibelle += element;
     }
 
-    const dataPrev = readFile(filePath);
-    const possesseur = (await dataPrev).data.possesseur;
-    const possession = (await dataPrev).data.possessions.filter(p => p.libelle === vide);
-    const AllPossession = (await dataPrev).data.possessions.filter(p => p.libelle !== vide);
+    const result = await readFile(filePath);
+    
+    if (result.status === 'OK') {
+      const data = result.data;
+      const possession = data.possessions.find(p => p.libelle === newLibelle);
 
-    let newPossession = {
-      possesseur: possesseur,
-      libelle: request.libelle,
-      valeur: parseInt(possession[0].valeur),
-      dateDebut: new Date(possession[0].dateDebut),
-      dateFin: new Date(request.dateFin),
-      tauxAmortissement: parseInt(possession[0].tauxAmortissement)
+      possession.libelle = donnes.libelle;
+      possession.dateFin = new Date(donnes.dateFin);
+
+      await writeFile(filePath, data);
+      
+      res.status(200).json({message: "Update successfully"});
+    } else {
+      res.status(500).json({message: "Erreur"});
     }
-
-    AllPossession.push(newPossession);
-
-    res.json({
-      "new Possession" : newPossession,
-      "data": AllPossession
-    });
-
-    const newPatrimoine = {
-      "possesseur": possesseur,
-      "possessions": AllPossession
-    }
-
-    writeFile(filePath, newPatrimoine);
-
   } catch (err) {
     return res.status(500).json({ message: 'Erreur lors de l\'analyse du fichier JSON.' });
   }
 })
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
