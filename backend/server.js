@@ -8,20 +8,20 @@ const app = express();
 const port = 5000;
 
 app.use(cors());
-app.use(express.json())
-
-const getDataFromJson = async () => {
-  const fileData = fileURLToPath(import.meta.url);
-  const dirname = path.dirname(fileData);
-  const filePath = path.join(dirname, '../data/data.json');
-  const data = readFile(filePath, 'utf8');
-  return data
-};
+app.use(express.json());
 
 app.get('/possession', async (req, res) => {
   try {
-    const data = await getDataFromJson();
-    res.json(data);
+    const fileData = fileURLToPath(import.meta.url);
+    const dirname = path.dirname(fileData);
+    const filePath = path.join(dirname, '../data/data.json');
+    const data = await readFile(filePath, 'utf8');
+    
+    if (data.status === 'OK') {
+      res.json(data);
+    } else {
+      res.json({message: error});
+    }
   } catch (error) {
     res.status(500).send('Erreur lors de la lecture des données : ' + error);
   }
@@ -33,10 +33,10 @@ app.post('/possession/create', async (req, res) => {
     const dirname = path.dirname(fileData);
     const filePath = path.join(dirname, '../data/data.json');
 
-    const dataPrev = readFile(filePath, 'utf8');
+    const data = await readFile(filePath, 'utf8');
 
     const request = req.body;
-    const possesseur = (await dataPrev).data.possesseur;
+    const possesseur = data.data.possesseur;
 
     const newPossession = {
       possesseur: possesseur,
@@ -47,13 +47,12 @@ app.post('/possession/create', async (req, res) => {
       tauxAmortissement: parseInt(request.tauxAmortissement)
     };
 
-    (await dataPrev).data.possessions.push(newPossession)
+    data.data.possessions.push(newPossession)
 
-    let newPatrimoine = {
-      "possesseur": possesseur,
-      "possessions": (await dataPrev).data.possessions
+    const newPatrimoine = {
+      possesseur: possesseur,
+      possessions: data.data.possessions
     }
-
     writeFile(filePath, newPatrimoine);
 
     res.status(201).send('Nouvelle possession ajoutée avec succès.');

@@ -50,7 +50,7 @@ export default function ListPossession() {
                         {data.data.possessions.map((possession, index) => (
                             <tr key={index} className="hover:bg-blue-100">
                                 <td className="py-4 px-6 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{possession.libelle}</td>
-                                <td className="py-4 px-6 text-lg font-bold text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
+                                <td className="py-4 px-6 text-lg font-semibold text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{possession.dateFin === null ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
                                 <td className="py-4 px-8 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
