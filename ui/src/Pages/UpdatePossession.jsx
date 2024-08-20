@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 export default function UpdatePossession() {
   const { libelle } = useParams();
- 
+
   let vide = "";
 
   const libellePrev = libelle.split('').slice(1, libelle.length);
@@ -22,10 +22,10 @@ export default function UpdatePossession() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewData(prevState => ({
-        ...prevState,
-        [name]: value
+      ...prevState,
+      [name]: value
     }));
-};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
