@@ -46,26 +46,6 @@
       "dateDebut": "2022-12-31T00:00:00.000Z",
       "dateFin": null,
       "tauxAmortissement": 20
-    },
-    {
-      "possesseur": {
-        "nom": "John Doe"
-      },
-      "libelle": "Salaire",
-      "valeur": 2000000,
-      "dateDebut": "2024-08-09T00:00:00.000Z",
-      "dateFin": null,
-      "tauxAmortissement": 6
-    },
-    {
-      "possesseur": {
-        "nom": "John Doe"
-      },
-      "libelle": "Argent de poche",
-      "valeur": 5000000,
-      "dateDebut": "2024-08-18T00:00:00.000Z",
-      "dateFin": null,
-      "tauxAmortissement": 0
     }
   ]
 }
