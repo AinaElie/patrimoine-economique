@@ -21,29 +21,25 @@ export default class Flux extends Possession {
   getValeur(date) {
 
     const nombreDeMois = (debut, dateEvaluation, jourJ) => {
-        
-        let compteur = 0;
-    
-        if (debut.getDate() < jourJ) {
-            compteur++;
-        }
-        
-        if (dateEvaluation.getDate() >= jourJ && !(debut.getFullYear() === dateEvaluation.getFullYear() && debut.getMonth() === dateEvaluation.getMonth())) {
-            compteur++;
-        }
-        
-        let totalMois = (dateEvaluation.getFullYear() - debut.getFullYear()) * 12 + (dateEvaluation.getMonth() - debut.getMonth()) - 1;
-    
-        compteur += Math.max(0, totalMois);
-    
-        return compteur;
+
+      let compteur = 0;
+
+      if (debut.getDate() < jourJ) {
+        compteur++;
+      }
+
+      if (dateEvaluation.getDate() >= jourJ && !(debut.getFullYear() === dateEvaluation.getFullYear() && debut.getMonth() === dateEvaluation.getMonth())) {
+        compteur++;
+      }
+
+      let totalMois = (dateEvaluation.getFullYear() - debut.getFullYear()) * 12 + (dateEvaluation.getMonth() - debut.getMonth()) - 1;
+
+      compteur += Math.max(0, totalMois);
+
+      return compteur;
     }
     
-    if (date.getMonth() > this.dateDebut.getMonth()) {
-      this.valeur += nombreDeMois(this.dateDebut, date, this.jour) * this.valeurConstante;
-      return this.valeur;
-    } else {
-      return this.valeur = 0;
-    }
+    this.valeur += nombreDeMois(this.dateDebut, date, this.jour) * this.valeurConstante;
+    return this.valeur;
   }
 }
