@@ -18,7 +18,7 @@ app.get('/possession', async (req, res) => {
     const data = await readFile(filePath, 'utf8');
     
     if (data.status === 'OK') {
-      res.json(data);
+      res.json(data.data);
     } else {
       res.json({message: error});
     }
