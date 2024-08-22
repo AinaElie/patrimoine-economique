@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
+import Possession from '../../../models/possessions/Possession.js';
+import Flux from '../../../models/possessions/Flux.js';
+
 export default function ListPossession() {
     const [data, setData] = useState(null);
 
@@ -20,6 +23,12 @@ export default function ListPossession() {
     if (!data) {
         return <div>Aucune donnée trouvée</div>;
     }
+
+    const LesPossessions = data.possessions.filter(element => element.valeur !== 0);
+    const newPossession = LesPossessions.map(element => new Possession(element.possesseur, element.libelle, element.valeur, new Date(element.dateDebut), element.dateFin === null ? "..." : new Date(element.dateFin), element.tauxAmortissement));
+    const LesFlux = data.possessions.filter(element => element.valeur == 0);
+    const newFlux = LesFlux.map(element => new Flux(element.possesseur, element.libelle, element.valeurConstante, new Date(element.dateDebut), element.dateFin === null ? "..." : new Date(element.dateFin), element.tauxAmortissement, element.jour));
+    const possessions = newPossession.concat(newFlux);
 
     return (
         <>
@@ -43,25 +52,33 @@ export default function ListPossession() {
                                 Date fin
                             </th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left">Taux d'amortissement</th>
+                            <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left">Valeur Actuelle</th>
                             <th scope="col" className="py-3 px-6 text-lg text-gray-700 font-medium text-left"></th>
                         </tr>
                     </thead>
                     <tbody className='bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700'>
-                        {data.possessions.map((possession, index) => (
+                        {possessions.map((possession, index) => (
                             <tr key={index} className="hover:bg-blue-100">
                                 <td className="py-4 px-6 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{possession.libelle}</td>
                                 <td className="py-4 px-6 text-lg font-semibold text-gray-900 whitespace-nowrap dark:text-white">{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
-                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{possession.dateFin === null ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
+                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {
+                                        possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString() 
+                                    }
+                                </td>
                                 <td className="py-4 px-8 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}
                                 </td>
+                                <td className="py-4 px-8 text-lg font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    {possession.getValeur(new Date()).toFixed(0)}
+                                </td>
                                 <td scope="col" className="py-3 px-6 text-lg text-gray-700 text-left flex items-center">
                                     <Link to={`:${possession.libelle}/update`} className='mx-4 text-xl'>
-                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <i className="fa-solid fa-pen-to-square"></i>
                                     </Link>
                                     <Link className='text-xl'>
-                                        <i class="fa-regular fa-circle-xmark"></i>
+                                        <i className="fa-regular fa-circle-xmark"></i>
                                     </Link>
                                 </td>
                             </tr>
