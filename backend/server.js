@@ -96,6 +96,40 @@ app.put('/possession/:libelle/update', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: 'Erreur lors de l\'analyse du fichier JSON.' });
   }
+});
+
+app.put('/possession/:libelle/close', async (req, res) => {
+  try{
+    const fileData = fileURLToPath(import.meta.url);
+    const dirname = path.dirname(fileData);
+    const filePath = path.join(dirname, '../data/data.json');
+
+    const result = await readFile(filePath);
+    const { libelle } = req.params;
+
+    let newLibelle = "";
+
+    const libellePrev = libelle.split('').slice(1, libelle.length);
+    for (let index = 0; index < libellePrev.length; index++) {
+      const element = libellePrev[index];
+      newLibelle += element;
+    }
+
+    if (result.status === 'OK') {
+      const data = result.data
+      const possession = data.possessions.find(element => element.libelle === newLibelle);
+      possession.dateFin = new Date();
+      await writeFile(filePath, data);
+      res.status(200).json({message: "Possession close successfully", 
+        donne: possession.dateFin
+      });
+    } else {
+      res.status(500).json({message: "Erreur"});
+    }
+
+  } catch (err) {
+    res.status(500).send(err);
+  }
 })
 
 app.listen(port, () => {
