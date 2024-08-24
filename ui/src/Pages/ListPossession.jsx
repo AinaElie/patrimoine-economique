@@ -77,7 +77,7 @@ export default function ListPossession() {
                                     <Link to={`:${possession.libelle}/update`} className='mx-4 text-xl'>
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </Link>
-                                    <Link className='text-xl'>
+                                    <Link to={`:${possession.libelle}/close`} className='text-xl'>
                                         <i className="fa-regular fa-circle-xmark"></i>
                                     </Link>
                                 </td>
