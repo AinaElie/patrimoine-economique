@@ -56,12 +56,12 @@ export default function Patrimoine() {
       <div>
         <LineChart />
       </div>
-      <form onSubmit={handleDate}>
+      <form onSubmit={handleDate} className="container p-8" >
         <h1 className='text-xl py-4'>Selectionner la date : </h1>
         <input type="date" onChange={(event) => setValue(event.target.value)} value={value} className='border border-gray-600 py-2 px-4 rounded-lg' />
         <button className='bg-blue-600 mx-2 py-3 px-4 rounded-xl text-white' type='submit'>Valider</button>
         <p className='text-xl py-4'>Valeur du patrimoine est :
-          <span className='font-semibold text-2xl'>
+          <span className='font-semibold text-2xl mx-1'>
             {patrimoine.getValeur(new Date(date)).toFixed(0)}
           </span>
         </p>
