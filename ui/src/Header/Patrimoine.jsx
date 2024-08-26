@@ -4,17 +4,19 @@ import Possession from '../../../models/possessions/Possession';
 import Flux from '../../../models/possessions/Flux';
 import InstancePatrimoine from '../../../models/Patrimoine.js';
 import Personne from '../../../models/Personne.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Patrimoine() {
   const [data, setData] = useState(null);
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
+  const navigate = useNavigate();
 
   function handleDate(event) {
     event.preventDefault();
     setValue("");
     setDate(value);
+    navigate(`:${value}`);
   }
 
   useEffect(() => {
@@ -57,9 +59,7 @@ export default function Patrimoine() {
       <form onSubmit={handleDate}>
         <h1 className='text-xl py-4'>Selectionner la date : </h1>
         <input type="date" onChange={(event) => setValue(event.target.value)} value={value} className='border border-gray-600 py-2 px-4 rounded-lg' />
-        <button className='bg-blue-600 mx-2 py-3 px-4 rounded-xl text-white' type='submit'>
-          <Link to={`:${value}`} >Valider</Link>
-        </button>
+        <button className='bg-blue-600 mx-2 py-3 px-4 rounded-xl text-white' type='submit'>Valider</button>
         <p className='text-xl py-4'>Valeur du patrimoine est :
           <span className='font-semibold text-2xl'>
             {patrimoine.getValeur(new Date(date)).toFixed(0)}
