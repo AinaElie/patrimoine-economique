@@ -1,11 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import Possession from '../../../models/possessions/Possession.js';
 import Flux from '../../../models/possessions/Flux.js';
 
 export default function ListPossession() {
+    const { libelle } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        async function closePossession() {
+            try {
+                let response = await fetch(`http://localhost:5000/possession/${libelle}/close`, {
+                    method: 'PUT',
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Reponse serveur : ", data);
+                    navigate('/possession');
+                } else {
+                    const data = await response.json()
+                    console.log("Erreur : ", data);
+                }
+            } catch (error) {
+                console.error("Erreur sur le transfert de donne :", error);
+            }
+        }
+
+        if (libelle) {
+            closePossession();
+        }
+    }, [libelle, navigate]);
+
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -64,7 +91,7 @@ export default function ListPossession() {
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{new Date(possession.dateDebut).toLocaleDateString()}</td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {
-                                        possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString() 
+                                        possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString()
                                     }
                                 </td>
                                 <td className="py-4 px-8 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -77,7 +104,7 @@ export default function ListPossession() {
                                     <Link to={`:${possession.libelle}/update`} className='mx-4 text-xl'>
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </Link>
-                                    <Link to={`:${possession.libelle}/close`} className='text-xl'>
+                                    <Link to={`:${possession.libelle}/close`} className='text-xl' onClick={() => closePossession()} >
                                         <i className="fa-regular fa-circle-xmark"></i>
                                     </Link>
                                 </td>
