@@ -16,11 +16,11 @@ app.get('/possession', async (req, res) => {
     const dirname = path.dirname(fileData);
     const filePath = path.join(dirname, '../data/data.json');
     const data = await readFile(filePath, 'utf8');
-    
+
     if (data.status === 'OK') {
       res.json(data.data);
     } else {
-      res.json({message: error});
+      res.json({ message: error });
     }
   } catch (error) {
     res.status(500).send('Erreur lors de la lecture des données : ' + error);
@@ -79,7 +79,7 @@ app.put('/possession/:libelle/update', async (req, res) => {
     }
 
     const result = await readFile(filePath);
-    
+
     if (result.status === 'OK') {
       const data = result.data;
       const possession = data.possessions.find(p => p.libelle === newLibelle);
@@ -88,10 +88,10 @@ app.put('/possession/:libelle/update', async (req, res) => {
       possession.dateFin = new Date(donnes.dateFin);
 
       await writeFile(filePath, data);
-      
-      res.status(200).json({message: "Update successfully"});
+
+      res.status(200).json({ message: "Update successfully" });
     } else {
-      res.status(500).json({message: "Erreur"});
+      res.status(500).json({ message: "Erreur" });
     }
   } catch (err) {
     return res.status(500).json({ message: 'Erreur lors de l\'analyse du fichier JSON.' });
@@ -99,12 +99,11 @@ app.put('/possession/:libelle/update', async (req, res) => {
 });
 
 app.put('/possession/:libelle/close', async (req, res) => {
-  try{
+  try {
     const fileData = fileURLToPath(import.meta.url);
     const dirname = path.dirname(fileData);
     const filePath = path.join(dirname, '../data/data.json');
 
-    const result = await readFile(filePath);
     const { libelle } = req.params;
 
     let newLibelle = "";
@@ -114,19 +113,19 @@ app.put('/possession/:libelle/close', async (req, res) => {
       const element = libellePrev[index];
       newLibelle += element;
     }
-
+    const result = await readFile(filePath);
     if (result.status === 'OK') {
-      const data = result.data
-      const possession = data.possessions.find(element => element.libelle === newLibelle);
-      possession.dateFin = new Date();
-      await writeFile(filePath, data);
-      res.status(200).json({message: "Possession close successfully", 
-        donne: possession.dateFin
-      });
-    } else {
-      res.status(500).json({message: "Erreur"});
-    }
+      const data = result.data;
+      const possession = data.possessions.find(p => p.libelle === newLibelle );
 
+      possession.dateFin = new Date();
+
+      await writeFile(filePath, data);
+
+      res.status(200).json({ message: "Possession Closing" });
+    } else {
+      res.status(500).json({ message: "Erreur" });
+    }
   } catch (err) {
     res.status(500).send(err);
   }
