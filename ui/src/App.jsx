@@ -27,7 +27,13 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "/patrimoine",
-    element: <Patrimoine />
+    element: <Patrimoine />,
+    children: [
+      {
+        path: ":date",
+        element: <Patrimoine />
+      },
+    ]
   },
   {
     path: "*",
