@@ -129,7 +129,25 @@ app.put('/possession/:libelle/close', async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-})
+});
+
+app.get('/patrimoine', async (req, res) => {
+  try {
+    const fileData = fileURLToPath(import.meta.url);
+    const dirname = path.dirname(fileData);
+    const filePath = path.join(dirname, '../data/data.json');
+
+    const result = await readFile(filePath);
+    if (result.status === 'OK') {
+      const data = result.data;
+      res.status(200).json({data: data});
+    } else {
+      res.status(500).json({message: 'Erreur sur la lecture de donne'});
+    }
+  } catch (err) {
+    res.status(500).json({message: err})
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
