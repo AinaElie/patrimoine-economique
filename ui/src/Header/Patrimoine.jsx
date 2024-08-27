@@ -5,6 +5,7 @@ import Flux from '../../../models/possessions/Flux';
 import InstancePatrimoine from '../../../models/Patrimoine.js';
 import Personne from '../../../models/Personne.js';
 import { useNavigate } from 'react-router-dom';
+import Button from '../Components/Button.jsx';
 
 export default function Patrimoine() {
   const [data, setData] = useState(null);
@@ -65,6 +66,7 @@ export default function Patrimoine() {
           </span>
         </p>
       </form>
+      <Button target={"/"} print={"Menu"} />
     </>
   )
 }
