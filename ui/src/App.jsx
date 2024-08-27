@@ -33,6 +33,10 @@ const ROUTER = createBrowserRouter([
         path: ":date",
         element: <Patrimoine />
       },
+      {
+        path: "range",
+        element: <Patrimoine />
+      }
     ]
   },
   {
