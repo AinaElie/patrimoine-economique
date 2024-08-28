@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import Possession from '../../../models/possessions/Possession.js';
 import Flux from '../../../models/possessions/Flux.js';
-import ButtonTarget from './ButtonTarget.jsx';
 import { Link } from 'react-router-dom';
 
 export default function ListPossession() {
@@ -63,15 +62,14 @@ export default function ListPossession() {
                                     {/* <i className="fa-solid fa-pen-to-square"></i> */}
                                     Edit
                                 </Link>
-                                {/* <Link to={`:${possession.libelle}/close`}>
+                                <Link to={`:${possession.libelle}/close`}>
                                     <i className="fa-regular fa-circle-xmark"></i>
-                                </Link> */}
+                                </Link>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
-            <ButtonTarget target={"/possession/create"} print={"Create Possession"} />
         </div>
     )
 }

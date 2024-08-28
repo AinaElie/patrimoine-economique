@@ -5,7 +5,7 @@ export default function Patrimoine() {
   return (
     <div>
         <Header />
-        <h5>Patrimoine</h5>
+        <h4>Patrimoine</h4>
     </div>
   )
 }
