@@ -56,6 +56,38 @@ app.post('/possession/create', async (req, res) => {
     }
 });
 
+app.put('/possession/:libelle/update', async (req, res) => {
+    try {
+        const dataPrev = await readFile('./data/data.json', 'utf8');
+
+        const {libelle} = req.params;
+        const requeste = req.body;
+
+        let newLibelle = "";
+
+        const libellePrev = libelle.split('').slice(1, libelle.length);
+        for (let index = 0; index < libellePrev.length; index++) {
+            const element = libellePrev[index];
+            newLibelle += element;
+        }
+
+        if (dataPrev.status === 'OK') {
+            const data = await dataPrev.data;
+            const possession = data.possessions.find(p => p.libelle === newLibelle);
+
+            possession.libelle = requeste.libelle;
+            possession.dateFin = new Date(requeste.dateFin);
+        
+            await writeFile('./data/data.json', data);
+            res.status(200).json({message: possession});
+        } else {
+            res.status(500).json({ message: "Donne non trouver" })
+        }
+    } catch (error) {
+        res.send(500).json({ messge: "Erreur", error });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Serveur lancer : http://localhost:${port}`);
 })
