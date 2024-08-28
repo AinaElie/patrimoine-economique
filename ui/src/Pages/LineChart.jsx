@@ -5,11 +5,33 @@ import Possession from '../../../models/possessions/Possession';
 import Flux from '../../../models/possessions/Flux';
 import InstancePatrimoine from '../../../models/Patrimoine.js';
 import Personne from '../../../models/Personne.js'
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Title);
 
 const LineChart = () => {
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
+
+  const [valueDebut, setValueDebut] = useState("");
+  const [dateDebut, setDateDebut] = useState("");
+
+  const [valueFin, setValueFin] = useState("");
+  const [dateFin, setDateFin] = useState("");
+  
+  const [valueJour, setValueJour] = useState("");
+  const [jour, setJour] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setValueDebut("");
+    setDateDebut(valueDebut);
+    setValueFin("");
+    setDateFin(valueFin);
+    setValueJour("");
+    setJour(valueJour);
+    navigate("range");
+  }
 
   useEffect(() => {
     async function getData() {
@@ -43,17 +65,36 @@ const LineChart = () => {
   const personne = new Personne(data.possesseur.nom);
   const patrimoine = new InstancePatrimoine(personne, possessions);
 
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
-  const day = new Date().getDate();
-  // const dateToday = new Date(year'-'+month+'-'+day);
+  const obtenirMoisEntreDates = (dateDebut, dateFin, jour) => {
+    let mois = [];
+    let valeurPatrimoine = [];
+    let dateActuelle = new Date(dateDebut);
+
+    while (
+      dateActuelle.getFullYear() < new Date(dateFin).getFullYear() || 
+      (dateActuelle.getFullYear() === new Date(dateFin).getFullYear() && 
+        (dateActuelle.getMonth() < new Date(dateFin).getMonth() ||
+         (dateActuelle.getMonth() === new Date(dateFin).getMonth() && dateActuelle.getDate() <= new Date(dateFin).getDate())))
+    ) {
+      let dateToday = new Date(dateActuelle.getFullYear(), dateActuelle.getMonth(), jour);
+      mois.push(dateToday.toLocaleString('fr-FR', { day:'numeric',month: 'numeric', year: 'numeric' }));
+      valeurPatrimoine.push(patrimoine.getValeur(dateToday));
+
+      // Passe au mois suivant
+      dateActuelle.setMonth(dateActuelle.getMonth() + 1);
+    }
+
+    return {mois, valeurPatrimoine};
+  }
+
+  const value = obtenirMoisEntreDates(dateDebut, dateFin, jour); 
 
   const donne = {
-    labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Jui"],
+    labels: value.mois,
     datasets: [
       {
         label: 'Patrimoine',
-        data: [0, 40, 45, 60, 80, 10],
+        data: value.valeurPatrimoine,
         fill: false,
         borderColor: 'green',
         tension: 0.1,
@@ -63,10 +104,22 @@ const LineChart = () => {
 
   return (
     <div className='p-8'>
-      {/* {console.log(patrimoine.getValeur(new Date()).toFixed(0))}
-      {console.log(patrimoine.getValeur(new Date(year, month + 1, day)).toFixed(0))} */}
-      {/* {console.log(year)} */}
-      <div className='border w-10/12 h-96 flex justify-center items-center'>
+      <form className='flex items-end py-4' onSubmit={handleSubmit}>
+        <div className='mx-4'>
+          <h1>Date debut : </h1>
+          <input type="date" className='border border-gray-600 py-2 px-4 rounded-lg' value={valueDebut} onChange={(ev) => setValueDebut(ev.target.value)} required />
+        </div>
+        <div className='mx-4'>
+          <h1>Date fin : </h1>
+          <input type="date" className='border border-gray-600 py-2 px-4 rounded-lg' value={valueFin} onChange={(ev) => setValueFin(ev.target.value)} required />
+        </div>
+        <div className='mx-4'>
+          <h1>Jour : </h1>
+          <input type="number" className='border border-gray-600 py-2 pl-4 rounded-lg' value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
+        </div>
+        <button className='bg-blue-600 mx-2 py-3 px-4 rounded-xl text-white' type='submit'>Range</button>
+      </form>
+      <div className='border my-6 h-96 w-full flex justify-center items-center Line'>
         <Line data={donne} className='w-full' />
       </div>
     </div>
