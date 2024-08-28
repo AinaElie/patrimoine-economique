@@ -3,4 +3,4 @@
 
 #### Pour lancer le projet react :
 - cd ui
-- npm run dev
+- npm start
