@@ -19,7 +19,7 @@
       },
       "libelle": "Alternance",
       "valeur": 0,
-      "dateDebut": "2023-12-31T00:00:00.000Z",
+      "dateDebut": "2022-12-31T00:00:00.000Z",
       "dateFin": null,
       "tauxAmortissement": null,
       "jour": 1,
@@ -31,7 +31,7 @@
       },
       "libelle": "Survie",
       "valeur": 0,
-      "dateDebut": "2023-12-31T00:00:00.000Z",
+      "dateDebut": "2022-12-31T00:00:00.000Z",
       "dateFin": null,
       "tauxAmortissement": null,
       "jour": 2,
@@ -43,7 +43,7 @@
       },
       "libelle": "Effet vestimentaire",
       "valeur": 1000000,
-      "dateDebut": "2023-12-31T00:00:00.000Z",
+      "dateDebut": "2022-12-31T00:00:00.000Z",
       "dateFin": null,
       "tauxAmortissement": 20
     }
