@@ -4,6 +4,7 @@ import NotFound from './Pages/NotFound';
 import Menu from './Pages/Menu'
 import Possession from './Pages/Possession';
 import Patrimoine from './Pages/Patrimoine';
+import CreatePossession from './Components/CreatePossession';
 
 const ROUTER = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/possession",
     element: <Possession/>
+  },
+  {
+    path: "possession/create",
+    element: <CreatePossession/>
   },
   {
     path: "/patrimoine",
