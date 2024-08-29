@@ -81,11 +81,11 @@ export default function ListPossession({listpossession}) {
                                 <td className='py-3'>{possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
                                 <td className='py-3'>{possession.getValeur(new Date()).toFixed(0)}</td>
                                 <td className='py-3'>{possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}</td>
-                                <td>
+                                <td className='py-3'>
                                     <Link to={`:${possession.libelle}/update`} className='text-decoration-none mx-2'>
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </Link>
-                                    <Link to={`:${possession.libelle}/close`} onClick={() => closePossession()} className='text-decoration-none text-danger'>
+                                    <Link to={`:${possession.libelle}/close`} onClick={() => closePossession()} className='text-decoration-none text-primary'>
                                         Close
                                     </Link>
                                 </td>

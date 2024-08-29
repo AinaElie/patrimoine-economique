@@ -18,7 +18,7 @@ const ROUTER = createBrowserRouter([
     children: [
       {
         path: ":libelle/close",
-        element: <Possession/>
+        element: <Possession />
       },
     ]
   },
@@ -32,17 +32,7 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "/patrimoine",
-    element: <Patrimoine/>,
-    children: [
-      {
-        path: ":date",
-        element: <Patrimoine />
-      },
-      {
-        path: "range",
-        element: <Patrimoine />
-      }
-    ]
+    element: <Patrimoine/>
   },
   {
     path: "*",
