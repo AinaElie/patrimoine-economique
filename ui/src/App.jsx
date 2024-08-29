@@ -14,7 +14,7 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "/possession",
-    element: <Menu/>,
+    element: <Menu />,
     children: [
       {
         path: ":libelle/close",
@@ -24,15 +24,25 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "possession/create",
-    element: <CreatePossession/>
+    element: <CreatePossession />
   },
   {
     path: "possession/:libelle/update",
-    element: <UpdatePossession/>
+    element: <UpdatePossession />
   },
   {
     path: "/patrimoine",
-    element: <Menu/>
+    element: <Menu />,
+    children: [
+      {
+        path: ":date",
+        element: <Menu />
+      },
+      {
+        path: "range",
+        element: <Menu />
+      }
+    ]
   },
   {
     path: "*",
