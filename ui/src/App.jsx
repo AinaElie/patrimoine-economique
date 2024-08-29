@@ -1,20 +1,20 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import NotFound from './Pages/NotFound';
 import Menu from './Pages/Menu'
 import Possession from './Pages/Possession';
-import Patrimoine from './Pages/Patrimoine';
+// import Patrimoine from './Pages/Patrimoine';
 import CreatePossession from './Components/CreatePossession';
 import UpdatePossession from './Components/UpdatePossession';
 
 const ROUTER = createBrowserRouter([
   {
     path: "/",
-    element: <Menu/>
+    element: <Navigate to={"/patrimoine"} />
   },
   {
     path: "/possession",
-    element: <Possession/>,
+    element: <Menu/>,
     children: [
       {
         path: ":libelle/close",
@@ -32,7 +32,7 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "/patrimoine",
-    element: <Patrimoine/>
+    element: <Menu/>
   },
   {
     path: "*",

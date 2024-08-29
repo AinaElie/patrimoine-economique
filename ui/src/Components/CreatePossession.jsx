@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
-import ButtonTarget from './ButtonTarget';
+import { Button, Form } from 'react-bootstrap';
+// import ButtonTarget from './ButtonTarget';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreatePossession() {
+    const navigate = useNavigate(null);
+
     const [formData, setFormData] = useState({
         libelle: '',
         valeur: '',
@@ -29,9 +33,8 @@ export default function CreatePossession() {
             });
 
             if (response.ok) {
-                const data = await response.json()
-                console.log("Possession ajouté", data);
                 alert('Possession ajoutée avec succès !');
+                navigate('/');
             } else {
                 throw new Error('Erreur lors de l\'ajout du Possession')
             };
@@ -42,30 +45,29 @@ export default function CreatePossession() {
     };
 
     return (
-        <div className='container py-5'>
-            <h3>Creation de possession : </h3>
-            <form className='container' onSubmit={handleSubmit}>
-                <div className='py-4'>
-                    <h4>Libelle : </h4>
-                    <input type="text" className='py-2 px-3' name="libelle" value={formData.libelle} onChange={handleChange} required />
-                </div>
-                <div className='py-4'>
-                    <h4>Valeur : </h4>
-                    <input type="number" className='py-2 px-3' name="valeur" value={formData.valeur} onChange={handleChange} required />
-                </div>
-                <div className='py-4'>
-                    <h4>Date debut : </h4>
-                    <input type="date" className='py-2 px-4' name="dateDebut" value={formData.dateDebut} onChange={handleChange} required />
-                </div>
-                <div className='py-4'>
-                    <h4>Taux d'amortissement : </h4>
-                    <input type="number" className='py-2 px-3' name="tauxAmortissement" value={formData.tauxAmortissement} onChange={handleChange} required />
-                </div>
-                <button className='btn btn-primary py-2 px-4'>Creer</button>
-            </form>
-            <div className='py-3'>
-                <ButtonTarget target={"/"} print={"Retour"} />
+        <>
+            <div className='container flex-fill border w-50 py-5 px-5 my-5 bg-light rounded'>
+                <h3 className='px-5'>Creation de possession : </h3>
+                <Form onSubmit={handleSubmit} className='row py-5 px-5'>
+                    <Form.Group className="mb-3 col col-6">
+                        <Form.Label>Libelle : </Form.Label>
+                        <Form.Control type="text" name="libelle" value={formData.libelle} onChange={handleChange} required />
+                    </Form.Group>
+                    <Form.Group className="mb-3 col col-6">
+                        <Form.Label>Valeur : </Form.Label>
+                        <Form.Control type="number" name="valeur" value={formData.valeur} onChange={handleChange} required />
+                    </Form.Group>
+                    <Form.Group className="mb-3 col col-6">
+                        <Form.Label>Date debut : </Form.Label>
+                        <Form.Control type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} required />
+                    </Form.Group>
+                    <Form.Group className="mb-3 col col-6">
+                        <Form.Label>Taux d'amortissement : </Form.Label>
+                        <Form.Control type="number" name="tauxAmortissement" value={formData.tauxAmortissement} onChange={handleChange} required/>
+                    </Form.Group>
+                    <Button type='submit' className='col col-2 mx-3'>Creer</Button>
+                </Form>
             </div>
-        </div>
+        </>
     )
 }

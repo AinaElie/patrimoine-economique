@@ -21,11 +21,11 @@ export default function Header({ user }) {
             <Container className="py-4">
                 <h2 className="text-center mb-4">Bienvenu : {user} </h2>
                 <Tabs defaultActiveKey="patrimoine" id="patrimoine-tabs" className="mb-3" onSelect={handleSelect}>
-                    <Tab eventKey="patrimoine" title="Calculer la valeur du Patrimoine">
-                        {/* <Patrimoine /> */}
+                    <Tab eventKey="patrimoine" title="Patrimoine">
+                        <Patrimoine />
                     </Tab>
-                    <Tab eventKey="possession" title="Modifier les Possessions">
-                        {/* <Possession /> */}
+                    <Tab eventKey="possession" title="Possessions">
+                        <Possession />
                     </Tab>
                 </Tabs>
             </Container>

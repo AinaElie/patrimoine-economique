@@ -26,7 +26,7 @@ export default function Possession() {
 
   return (
     <div className='container'>
-      <Header user={data.possesseur.nom} />
+      {/* <Header user={data.possesseur.nom} /> */}
       <ListPossession listpossession={true} />
       <ButtonTarget target={"/possession/create"} print={"Create Possession"} />
     </div>

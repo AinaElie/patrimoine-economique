@@ -5,7 +5,7 @@ import Possession from '../../../models/possessions/Possession.js';
 import Flux from '../../../models/possessions/Flux.js';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-export default function ListPossession({listpossession}) {
+export default function ListPossession() {
     const [data, setData] = useState(null);
     const {libelle} = useParams();
     const navigate = useNavigate();
@@ -17,9 +17,8 @@ export default function ListPossession({listpossession}) {
                     method: 'PUT',
                 });
                 if (response.ok) {
-                    const data = await response.json();
-                    console.log("Reponse serveur : ", data);
-                    navigate('/possession');
+                    alert("Possession close successfully");
+                    navigate('/');
                 } else {
                     const data = await response.json()
                     console.log("Erreur : ", data);
@@ -57,72 +56,44 @@ export default function ListPossession({listpossession}) {
     const newFlux = LesFlux.map(element => new Flux(element.possesseur, element.libelle, element.valeurConstante, new Date(element.dateDebut), element.dateFin === null ? "..." : new Date(element.dateFin), element.tauxAmortissement, element.jour));
     const possessions = newPossession.concat(newFlux);
 
-    if (listpossession === true) {
-        return (
-            <div className='container'>
-                <Table bordered className='table rounded-3'>
-                    <thead striped>
-                        <tr>
-                            <th>Libelle</th>
-                            <th>Valeur</th>
-                            <th>Date de Debut</th>
-                            <th>Date de Fin</th>
-                            <th>Valeur Actuelle</th>
-                            <th>Taux d'amortissement</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {possessions.map((possession, index) => (
-                            <tr key={index}>
-                                <td className='py-3'>{possession.libelle}</td>
-                                <td className='py-3'>{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
-                                <td className='py-3'>{new Date(possession.dateDebut).toLocaleDateString()}</td>
-                                <td className='py-3'>{possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
-                                <td className='py-3'>{possession.getValeur(new Date()).toFixed(0)}</td>
-                                <td className='py-3'>{possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}</td>
-                                <td className='py-3'>
-                                    <Link to={`:${possession.libelle}/update`} className='text-decoration-none mx-2'>
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                    </Link>
-                                    <Link to={`:${possession.libelle}/close`} onClick={() => closePossession()} className='text-decoration-none text-primary'>
-                                        Close
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
+    return (
+        <div className='container'>
+            <div className='py-3 px-5'>
+                <h3>Listes des possessions : </h3>
             </div>
-        )
-    } else {
-        return (
-            <div className='container'>
-                <Table bordered className='table rounded-3'>
-                    <thead striped>
-                        <tr>
-                            <th>Libelle</th>
-                            <th>Valeur</th>
-                            <th>Date de Debut</th>
-                            <th>Date de Fin</th>
-                            <th>Valeur Actuelle</th>
-                            <th>Taux d'amortissement</th>
+            <Table bordered className='table rounded-3' hover striped>
+                <thead striped>
+                    <tr>
+                        <th>Libelle</th>
+                        <th>Valeur</th>
+                        <th>Date de Debut</th>
+                        <th>Date de Fin</th>
+                        <th>Valeur Actuelle</th>
+                        <th>Taux d'amortissement</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {possessions.map((possession, index) => (
+                        <tr key={index}>
+                            <td className='py-3'>{possession.libelle}</td>
+                            <td className='py-3'>{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
+                            <td className='py-3'>{new Date(possession.dateDebut).toLocaleDateString()}</td>
+                            <td className='py-3'>{possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
+                            <td className='py-3'>{possession.getValeur(new Date()).toFixed(0)}</td>
+                            <td className='py-3'>{possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}</td>
+                            <td className='py-3'>
+                                <Link to={`:${possession.libelle}/update`} className='text-decoration-none mx-2'>
+                                    <i className="fa-solid fa-pen-to-square"></i>
+                                </Link>
+                                <Link to={`:${possession.libelle}/close`} onClick={() => closePossession()} className='text-decoration-none text-danger'>
+                                    Close
+                                </Link>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {possessions.map((possession, index) => (
-                            <tr key={index}>
-                                <td className='py-3'>{possession.libelle}</td>
-                                <td className='py-3'>{Math.abs(possession.valeur) || Math.abs(possession.valeurConstante)}</td>
-                                <td className='py-3'>{new Date(possession.dateDebut).toLocaleDateString()}</td>
-                                <td className='py-3'>{possession.dateFin === "..." ? "..." : new Date(possession.dateFin).toLocaleDateString()}</td>
-                                <td className='py-3'>{possession.getValeur(new Date()).toFixed(0)}</td>
-                                <td className='py-3'>{possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        )
-    }
+                    ))}
+                </tbody>
+            </Table>
+        </div>
+    )
 }
