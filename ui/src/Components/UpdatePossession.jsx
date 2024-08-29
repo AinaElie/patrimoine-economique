@@ -53,20 +53,6 @@ export default function UpdatePossession() {
 
   return (
     <>
-      {/* <div className='container py-5'>
-        <h3>Update Possession : </h3>
-        <form onSubmit={handleSubmit}>
-          <div className='py-4'>
-            <h4>Libelle : </h4>
-            <input type="text" placeholder={newLibelle} className='py-2 px-4' name="libelle" value={newData.libelle} onChange={handleChange} required />
-          </div>
-          <div className='py-4'>
-            <h4>Date fin : </h4>
-            <input type='date' className='py-2 px-5' name="dateFin" value={newData.dateFin} onChange={handleChange} required />
-          </div>
-          <button className='btn btn-primary py-2 px-4'>Update</button>
-        </form>
-      </div> */}
       <div className='container flex-fill border w-50 py-5 px-5 my-5 bg-light rounded'>
         <h3 className='px-5'>Update possession : </h3>
         <Form onSubmit={handleSubmit} className='row py-5 px-5'>
