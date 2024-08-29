@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-// import ButtonTarget from './ButtonTarget';
 import { Button, Form } from 'react-bootstrap';
 
 export default function UpdatePossession() {
