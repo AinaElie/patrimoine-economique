@@ -52,7 +52,7 @@ export default function UpdatePossession() {
   };
 
   return (
-    <>
+    <> 
       <div className='container flex-fill border w-50 py-5 px-5 my-5 bg-light rounded'>
         <h3 className='px-5'>Update possession : </h3>
         <Form onSubmit={handleSubmit} className='row py-5 px-5'>
