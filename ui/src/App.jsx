@@ -14,7 +14,13 @@ const ROUTER = createBrowserRouter([
   },
   {
     path: "/possession",
-    element: <Possession/>
+    element: <Possession/>,
+    children: [
+      {
+        path: ":libelle/close",
+        element: <Possession/>
+      },
+    ]
   },
   {
     path: "possession/create",
