@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import ListPossession from '../Components/ListPossession';
 import Header from '../Components/Header';
 
 export default function Menu() {
@@ -25,8 +24,7 @@ export default function Menu() {
 
     return (
         <>
-            <Header />
-            <ListPossession/>
+            <Header user={data.possesseur.nom} />
         </>
     )
 }
