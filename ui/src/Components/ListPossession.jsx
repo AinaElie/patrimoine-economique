@@ -59,12 +59,11 @@ export default function ListPossession() {
                             <td className='py-3'>{possession.tauxAmortissement !== null ? `${possession.tauxAmortissement}%` : 0 + '%'}</td>
                             <td>
                                 <Link to={`:${possession.libelle}/update`}>
-                                    {/* <i className="fa-solid fa-pen-to-square"></i> */}
-                                    Edit
+                                    <i className="fa-solid fa-pen-to-square"></i>
                                 </Link>
-                                <Link to={`:${possession.libelle}/close`}>
+                                {/* <Link to={`:${possession.libelle}/close`}>
                                     <i className="fa-regular fa-circle-xmark"></i>
-                                </Link>
+                                </Link> */}
                             </td>
                         </tr>
                     ))}
