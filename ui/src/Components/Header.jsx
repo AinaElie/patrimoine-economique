@@ -1,5 +1,4 @@
 import React from 'react'
-// import ButtonTarget from './ButtonTarget'
 import { Container, Tabs, Tab } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Patrimoine from '../Pages/Patrimoine';

@@ -36,7 +36,7 @@ const LineChart = ({value}) => {
     labels: value.mois,
     datasets: [
       {
-        label: 'Value',
+        label: 'Valeur du patrimoine',
         data: value.valeurPatrimoine,
         fill: false,
         borderColor: 'green',

@@ -112,32 +112,27 @@ export default function Patrimoine() {
 
   return (
     <>
-      <Accordion defaultActiveKey="0" className='my-5' alwaysOpen>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Statistique du patrimoine : </Accordion.Header>
-          <Accordion.Body>
-            <div>
-              <Form onSubmit={handleSubmit} className='row flex justify-content-center align-items-center'>
-                <Form.Group className="mb-3 col col-3">
-                  <Form.Label>Date debut : </Form.Label>
-                  <Form.Control type="date" value={valueDebut} onChange={(ev) => setValueDebut(ev.target.value)} required />
-                </Form.Group>
-                <Form.Group className="mb-3 col col-3">
-                  <Form.Label>Date fin : </Form.Label>
-                  <Form.Control type="date" value={valueFin} onChange={(ev) => setValueFin(ev.target.value)} required />
-                </Form.Group>
-                <Form.Group className="mb-3 col col-3">
-                  <Form.Label>Jour: </Form.Label>
-                  <Form.Control type="number" value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
-                </Form.Group>
-                <Form.Group className="col col-3 mt-3">
-                  <button type='submit' className='btn btn-primary px-4 py-2'>Range</button>
-                </Form.Group>
-              </Form>
-              <ComponentsChart value={valueFinal} />
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
+      <div className='py-5'>
+        <Form onSubmit={handleSubmit} className='row flex justify-content-center align-items-center px-5'>
+          <Form.Group className="mb-3 col col-3">
+            <Form.Label>Date debut : </Form.Label>
+            <Form.Control type="date" value={valueDebut} onChange={(ev) => setValueDebut(ev.target.value)} required />
+          </Form.Group>
+          <Form.Group className="mb-3 col col-3">
+            <Form.Label>Date fin : </Form.Label>
+            <Form.Control type="date" value={valueFin} onChange={(ev) => setValueFin(ev.target.value)} required />
+          </Form.Group>
+          <Form.Group className="mb-3 col col-3">
+            <Form.Label>Jour: </Form.Label>
+            <Form.Control type="number" value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
+          </Form.Group>
+          <Form.Group className="col col-3 mt-3">
+            <button type='submit' className='btn btn-primary px-4 py-2'>Range</button>
+          </Form.Group>
+        </Form>
+        <ComponentsChart value={valueFinal} />
+      </div>
+      <Accordion defaultActiveKey="1" className='my-5' alwaysOpen>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Calcul de patrimoine : </Accordion.Header>
           <Accordion.Body>
