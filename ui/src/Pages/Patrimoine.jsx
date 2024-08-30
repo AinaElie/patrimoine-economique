@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { Button, Form } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
-import LineChart from '../Components/ComponentsChart.jsx';
+import ComponentsChart from './../Components/ComponentsChart.jsx';
 
 export default function Patrimoine() {
   const [data, setData] = useState(null);
@@ -64,7 +64,6 @@ export default function Patrimoine() {
         if (reponse.ok) {
           const data = await reponse.json();
           setData(data.data);
-          // console.log("Les donnes : ", data);
         } else {
           console.log("Erreur : ", reponse);
         }
@@ -103,7 +102,6 @@ export default function Patrimoine() {
       mois.push(dateToday.toLocaleString('fr-FR', { day: 'numeric', month: 'numeric', year: 'numeric' }));
       valeurPatrimoine.push(patrimoine.getValeur(dateToday));
 
-      // Passe au mois suivant
       dateActuelle.setMonth(dateActuelle.getMonth() + 1);
     }
 
@@ -116,47 +114,34 @@ export default function Patrimoine() {
     <>
       <Accordion defaultActiveKey="0" className='my-5' alwaysOpen>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Valeur du patrimoine : </Accordion.Header>
+          <Accordion.Header>Statistique du patrimoine : </Accordion.Header>
           <Accordion.Body>
-            {/* <form className='flex items-end py-4' onSubmit={handleSubmit}>
-              <div className='mx-4'>
-                <h1>Date debut : </h1>
-                <input type="date" className='border border-gray-600 py-2 px-4 rounded-lg' value={valueDebut} onChange={(ev) => setValueDebut(ev.target.value)} required />
-              </div>
-              <div className='mx-4'>
-                <h1>Date fin : </h1>
-                <input type="date" className='border border-gray-600 py-2 px-4 rounded-lg' value={valueFin} onChange={(ev) => setValueFin(ev.target.value)} required />
-              </div>
-              <div className='mx-4'>
-                <h1>Jour : </h1>
-                <input type="number" className='border border-gray-600 py-2 pl-4 rounded-lg' value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
-              </div>
-              <button className='bg-blue-600 mx-2 py-3 px-4 rounded-xl text-white' type='submit'>Range</button>
-            </form> */}
-            <div className='container flex-fill border w-50 py-5 px-5 my-5 bg-light rounded'>
-              <Form onSubmit={handleSubmit} className='row py-5 px-5'>
-                <Form.Group className="mb-3 col col-6">
+            <div>
+              <Form onSubmit={handleSubmit} className='row flex justify-content-center align-items-center'>
+                <Form.Group className="mb-3 col col-3">
                   <Form.Label>Date debut : </Form.Label>
                   <Form.Control type="date" value={valueDebut} onChange={(ev) => setValueDebut(ev.target.value)} required />
                 </Form.Group>
-                <Form.Group className="mb-3 col col-6">
+                <Form.Group className="mb-3 col col-3">
                   <Form.Label>Date fin : </Form.Label>
                   <Form.Control type="date" value={valueFin} onChange={(ev) => setValueFin(ev.target.value)} required />
                 </Form.Group>
-                <Form.Group className="mb-3 col col-6">
+                <Form.Group className="mb-3 col col-3">
                   <Form.Label>Jour: </Form.Label>
-                  <Form.Control type="date" value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
+                  <Form.Control type="number" value={valueJour} onChange={(ev) => setValueJour(ev.target.value)} required />
                 </Form.Group>
-                <Button type='submit'>Range</Button>
+                <Form.Group className="col col-3 mt-3">
+                  <button type='submit' className='btn btn-primary px-4 py-2'>Range</button>
+                </Form.Group>
               </Form>
+              <ComponentsChart value={valueFinal} />
             </div>
-            {/* <LineChart key="chartMy" /> */}
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Calcul de patrimoine : </Accordion.Header>
           <Accordion.Body>
-            <div className='container flex-fill border w-50 py-3 px-5 my-5 bg-light rounded'>
+            <div className='container flex-fill border w-75 py-3 my-5 bg-light rounded'>
               <h4 className='px-5 py-3'>Selectionne la date :</h4>
               <Form onSubmit={handleDate} className='row px-5'>
                 <Form.Group className="mb-3 col col-6">
@@ -164,11 +149,11 @@ export default function Patrimoine() {
                   <Button type='submit' className='mx-3 col col-6 my-3'>Valider</Button>
                 </Form.Group>
               </Form>
-              <h3 className='py-2 text-xl'>La valeur du patrimoine est :
+              <h4 className='py-2 px-5 text-xl'>La valeur du patrimoine est :
                 <span className='mx-1' style={{ fontWeight: 'bolder' }}>
                   {patrimoine.getValeur(new Date(date)).toFixed(0)}
                 </span>
-              </h3>
+              </h4>
             </div>
           </Accordion.Body>
         </Accordion.Item>
