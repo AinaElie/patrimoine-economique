@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Patrimoine from '../Pages/Patrimoine';
 import Possession from '../Pages/Possession';
 
-export default function Header({ user }) {
+export default function Header({ page }) {
     const navigate = useNavigate();
 
     const handleSelect = (key) => {
@@ -18,13 +18,10 @@ export default function Header({ user }) {
     return (
         <header>
             <Container className="py-4">
-                <h2 className="text-center mb-4">Bienvenu : {user} </h2>
-                <Tabs defaultActiveKey="patrimoine" id="patrimoine-tabs" className="mb-3" onSelect={handleSelect}>
+                <Tabs defaultActiveKey={page}id="patrimoine-tabs" className="mb-3" onSelect={handleSelect}>
                     <Tab eventKey="patrimoine" title="Patrimoine">
-                        <Patrimoine />
                     </Tab>
                     <Tab eventKey="possession" title="Possessions">
-                        <Possession />
                     </Tab>
                 </Tabs>
             </Container>
