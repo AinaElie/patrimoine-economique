@@ -4,7 +4,6 @@ import Flux from '../../../models/possessions/Flux';
 import InstancePatrimoine from '../../../models/Patrimoine.js';
 import Personne from '../../../models/Personne.js';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
 import { Button, Form } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
 import ComponentsChart from './../Components/ComponentsChart.jsx';
@@ -33,19 +32,6 @@ export default function Patrimoine() {
     navigate(`:${value}`);
   }
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        let reponse = await axios.get('http://localhost:5000/possession');
-        const dataPrev = await reponse.data;
-        setData(dataPrev);
-      } catch (err) {
-        console.log("Erreur : ", err);
-      }
-    }
-    getData();
-  }, []);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setValueDebut("");
@@ -60,14 +46,9 @@ export default function Patrimoine() {
   useEffect(() => {
     async function getData() {
       try {
-        let reponse = await axios.get('http://localhost:5000/possession');
-
-        if (reponse.ok) {
-          const data = await reponse.json();
-          setData(data.data);
-        } else {
-          console.log("Erreur : ", reponse);
-        }
+        let reponse = await fetch('http://localhost:5000/possession', {method: "GET"});
+        const data = await reponse.json();
+        setData(data);
       } catch (error) {
         console.log(error);
       }

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import Possession from '../../../models/possessions/Possession.js';
@@ -35,19 +34,19 @@ export default function ListPossession() {
 
     useEffect(() => {
         async function getData() {
-            try {
-                let reponse = await axios.get('http://localhost:5000/possession');
-                const dataPrev = await reponse.data;
-                setData(dataPrev);
-            } catch (err) {
-                console.log("Erreur : ", err);
-            }
+          try {
+            let reponse = await fetch('http://localhost:5000/possession', {method: "GET"});
+            const data = await reponse.json();
+            setData(data);
+          } catch (error) {
+            console.log(error);
+          }
         }
         getData();
-    }, []);
+      }, []);
 
     if (!data) {
-        return <h1>Aucune donne trouver</h1>
+        return <div>Aucune donne trouver</div>
     }
 
     const LesPossessions = data.possessions.filter(element => element.valeur !== 0);
