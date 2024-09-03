@@ -60,7 +60,7 @@ export default function ListPossession() {
             <div className='py-3 px-5'>
                 <h3>Listes des possessions : </h3>
             </div>
-            <Table bordered className='table rounded-3' hover striped>
+            <Table bordered bgcolor='green' className='table rounded-3' hover striped>
                 <thead striped>
                     <tr>
                         <th>Libelle</th>
