@@ -24,7 +24,7 @@ app.get('/possession', async (req, res) => {
             res.status(500).json({ message: "Donne non trouver" })
         }
     } catch (error) {
-        res.send(500).json({ messge: "Erreur", error });
+        res.status(500).json({ messge: "Erreur", error });
     }
 })
 
@@ -60,7 +60,7 @@ app.post('/possession/create', async (req, res) => {
             res.status(500).json({ message: "Donne non trouver" })
         }
     } catch (error) {
-        res.send(500).json({ messge: "Erreur", error });
+        res.status(500).json({ messge: "Erreur", error });
     }
 });
 
@@ -95,7 +95,7 @@ app.put('/possession/:libelle/update', async (req, res) => {
             res.status(500).json({ message: "Donne non trouver" })
         }
     } catch (error) {
-        res.send(500).json({ messge: "Erreur", error });
+        res.status(500).json({ messge: "Erreur", error });
     }
 });
 
@@ -129,7 +129,7 @@ app.put('/possession/:libelle/close', async (req, res) => {
             res.status(500).json({ message: "Donne non trouver" })
         }
     } catch (error) {
-        res.send(500).json({ messge: "Erreur", error });
+        res.status(500).json({ messge: "Erreur", error });
     }
 });
 
