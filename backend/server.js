@@ -1,5 +1,7 @@
 import express from "express";
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { readFile, writeFile } from '../data/index.js'
 
 const app = express();
@@ -10,7 +12,10 @@ app.use(express.json());
 
 app.get('/possession', async (req, res) => {
     try {
-        const dataPrev = await readFile('./data/data.json', 'utf8');
+        const fileData = fileURLToPath(import.meta.url);
+        const dirname = path.dirname(fileData);
+        const filePath = path.join(dirname, '../data/data.json');
+        const dataPrev = await readFile(filePath, 'utf8');
 
         if (dataPrev.status === 'OK') {
             const data = await dataPrev.data
@@ -25,7 +30,10 @@ app.get('/possession', async (req, res) => {
 
 app.post('/possession/create', async (req, res) => {
     try {
-        const dataPrev = await readFile('./data/data.json', 'utf8');
+        const fileData = fileURLToPath(import.meta.url);
+        const dirname = path.dirname(fileData);
+        const filePath = path.join(dirname, '../data/data.json');
+        const dataPrev = await readFile(filePath, 'utf8');
 
         const requeste = req.body;
 
@@ -58,7 +66,10 @@ app.post('/possession/create', async (req, res) => {
 
 app.put('/possession/:libelle/update', async (req, res) => {
     try {
-        const dataPrev = await readFile('./data/data.json', 'utf8');
+        const fileData = fileURLToPath(import.meta.url);
+        const dirname = path.dirname(fileData);
+        const filePath = path.join(dirname, '../data/data.json');
+        const dataPrev = await readFile(filePath, 'utf8');
 
         const {libelle} = req.params;
         const requeste = req.body;
@@ -91,7 +102,10 @@ app.put('/possession/:libelle/update', async (req, res) => {
 
 app.put('/possession/:libelle/close', async (req, res) => {
     try {
-        const dataPrev = await readFile('./data/data.json', 'utf8');
+        const fileData = fileURLToPath(import.meta.url);
+        const dirname = path.dirname(fileData);
+        const filePath = path.join(dirname, '../data/data.json');
+        const dataPrev = await readFile(filePath, 'utf8');
 
         const {libelle} = req.params;
 

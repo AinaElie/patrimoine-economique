@@ -114,8 +114,8 @@ export default function Patrimoine() {
   return (
     <>
       <Header page={"patrimoine"} />
-      <div className='container'>
-        <div className='py-5 container'>
+      <div className='container px-5'>
+        <div className='py-5 container px-5'>
           <Form onSubmit={handleSubmit} className='row flex justify-content-center align-items-center px-5'>
             <Form.Group className="mb-3 col col-3">
               <Form.Label>Date debut : </Form.Label>
@@ -135,7 +135,7 @@ export default function Patrimoine() {
           </Form>
           <ComponentsChart value={valueFinal} />
         </div>
-        <Accordion defaultActiveKey="1" className='my-5' alwaysOpen>
+        <Accordion defaultActiveKey="1" className='my-5 px-5' alwaysOpen>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Calcul de patrimoine : </Accordion.Header>
             <Accordion.Body>
