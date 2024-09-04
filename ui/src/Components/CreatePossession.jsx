@@ -33,6 +33,7 @@ export default function CreatePossession() {
 
             if (response.ok) {
                 alert('Possession ajoutée avec succès !');
+                console.log("Reponse : ", response);
                 navigate('/possession');
             } else {
                 throw new Error('Erreur lors de l\'ajout du Possession')

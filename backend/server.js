@@ -14,7 +14,7 @@ app.get('/possession', async (req, res) => {
     try {
         const fileData = fileURLToPath(import.meta.url);
         const dirname = path.dirname(fileData);
-        const filePath = path.join(dirname, 'data/data.json');
+        const filePath = path.join(dirname, './data/data.json');
         const dataPrev = await readFile(filePath, 'utf8');
 
         if (dataPrev.status === 'OK') {
@@ -53,9 +53,13 @@ app.post('/possession/create', async (req, res) => {
 
             possession.push(newPossession);
 
-            await writeFile('./data/data.json', data);
-
-            res.status(200).json({ possession });
+            const insertion = await writeFile(filePath, data);
+ 
+            if (insertion.status === 'OK') {
+                res.status(200).json({ message: "Insertion avec success" });
+            } else {
+                res.status(500).json({message: "Insertion echouer"})
+            }
         } else {
             res.status(500).json({ message: "Donne non trouver" })
         }
@@ -89,7 +93,7 @@ app.put('/possession/:libelle/update', async (req, res) => {
             possession.libelle = requeste.libelle;
             possession.dateFin = new Date(requeste.dateFin);
         
-            await writeFile('./data/data.json', data);
+            await writeFile(filePath, data);
             res.status(200).json({message: possession});
         } else {
             res.status(500).json({ message: "Donne non trouver" })
@@ -123,7 +127,7 @@ app.put('/possession/:libelle/close', async (req, res) => {
 
             possession.dateFin = new Date();
         
-            await writeFile('./data/data.json', data);
+            await writeFile(filePath, data);
             res.status(200).json({message: possession});
         } else {
             res.status(500).json({ message: "Donne non trouver" })
