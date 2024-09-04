@@ -40,7 +40,7 @@ export default function UpdatePossession() {
 
       if (response.ok) {
         alert("Possession update successfully");
-        navigate('/');
+        navigate('/possession');
       } else {
         throw new Error(`Erreur HTTP! statut: ${response}`);
       }

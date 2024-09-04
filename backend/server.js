@@ -2,7 +2,7 @@ import express from "express";
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readFile, writeFile } from '../data/index.js'
+import { readFile, writeFile } from './data/index.js'
 
 const app = express();
 const port = 5000;
@@ -14,7 +14,7 @@ app.get('/possession', async (req, res) => {
     try {
         const fileData = fileURLToPath(import.meta.url);
         const dirname = path.dirname(fileData);
-        const filePath = path.join(dirname, '../data/data.json');
+        const filePath = path.join(dirname, 'data/data.json');
         const dataPrev = await readFile(filePath, 'utf8');
 
         if (dataPrev.status === 'OK') {
@@ -32,7 +32,7 @@ app.post('/possession/create', async (req, res) => {
     try {
         const fileData = fileURLToPath(import.meta.url);
         const dirname = path.dirname(fileData);
-        const filePath = path.join(dirname, '../data/data.json');
+        const filePath = path.join(dirname, './data/data.json');
         const dataPrev = await readFile(filePath, 'utf8');
 
         const requeste = req.body;
@@ -68,7 +68,7 @@ app.put('/possession/:libelle/update', async (req, res) => {
     try {
         const fileData = fileURLToPath(import.meta.url);
         const dirname = path.dirname(fileData);
-        const filePath = path.join(dirname, '../data/data.json');
+        const filePath = path.join(dirname, './data/data.json');
         const dataPrev = await readFile(filePath, 'utf8');
 
         const {libelle} = req.params;
@@ -104,7 +104,7 @@ app.put('/possession/:libelle/close', async (req, res) => {
     try {
         const fileData = fileURLToPath(import.meta.url);
         const dirname = path.dirname(fileData);
-        const filePath = path.join(dirname, '../data/data.json');
+        const filePath = path.join(dirname, './data/data.json');
         const dataPrev = await readFile(filePath, 'utf8');
 
         const {libelle} = req.params;

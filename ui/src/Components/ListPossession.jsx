@@ -17,7 +17,7 @@ export default function ListPossession() {
                 });
                 if (response.ok) {
                     alert("Possession close successfully");
-                    navigate('/');
+                    navigate('/possession');
                 } else {
                     const data = await response.json()
                     console.log("Erreur : ", data);
