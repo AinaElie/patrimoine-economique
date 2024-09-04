@@ -7,14 +7,12 @@ import { readFile, writeFile } from './data/index.js'
 const app = express();
 const port = 5000;
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
 app.use(cors());
 app.use(express.json());
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/possession', async (req, res) => {
     try {
