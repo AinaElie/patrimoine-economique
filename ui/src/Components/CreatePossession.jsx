@@ -45,9 +45,9 @@ export default function CreatePossession() {
 
     return (
         <>
-            <div className='container flex-fill border w-50 py-5 px-5 my-5 bg-light rounded'>
+            <div className='container flex-fill border w-50 py-4 px-5 my-5 bg-light rounded'>
                 <h3 className='px-5'>Creation de possession : </h3>
-                <Form onSubmit={handleSubmit} className='row py-5 px-5'>
+                <Form onSubmit={handleSubmit} className='row py-4 px-5'>
                     <Form.Group className="mb-3 col col-6">
                         <Form.Label>Libelle : </Form.Label>
                         <Form.Control type="text" name="libelle" value={formData.libelle} onChange={handleChange} required />

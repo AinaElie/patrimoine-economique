@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import Possession from '../../../models/possessions/Possession.js';
-import Flux from '../../../models/possessions/Flux.js';
+import Possession from '/public/models/possessions/Possession.js';
+import Flux from '/public/models/possessions/Flux.js';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function ListPossession() {

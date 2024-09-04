@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Possession from '../../../models/possessions/Possession';
-import Flux from '../../../models/possessions/Flux';
-import InstancePatrimoine from '../../../models/Patrimoine.js';
-import Personne from '../../../models/Personne.js';
+import Possession from '/public/models/possessions/Possession.js';
+import Flux from '/public/models/possessions/Flux';
+import InstancePatrimoine from '/public/models/Patrimoine.js';
+import Personne from '/public/models/Personne.js';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
@@ -94,8 +94,8 @@ export default function Patrimoine() {
 
   return (
     <>
-      <Header page={"patrimoine"} />
-      <div className='container px-5'>
+      <div className='container'>
+        <Header page={"patrimoine"} />
         <div className='py-5 container px-5'>
           <Form onSubmit={handleSubmit} className='row flex justify-content-center align-items-center px-5'>
             <Form.Group className="mb-3 col col-3">
@@ -128,7 +128,7 @@ export default function Patrimoine() {
                     <Button type='submit' className='mx-3 col col-6 my-3'>Valider</Button>
                   </Form.Group>
                 </Form>
-                <h4 className='py-2 px-5 text-xl'>La valeur du patrimoine est :
+                <h4 className='py-2 px-5'>La valeur du patrimoine est :
                   <span className='mx-1' style={{ fontWeight: 'bolder' }}>
                     {patrimoine.getValeur(new Date(date)).toFixed(0)}
                   </span>
