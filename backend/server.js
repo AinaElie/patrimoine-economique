@@ -12,12 +12,12 @@ app.use(express.json());
 
 const fileData = fileURLToPath(import.meta.url);
 const dirname = path.dirname(fileData);
-const filePath = path.join(dirname, "./ui/dist");
+const filePath = path.join(dirname, "./../ui/dist");
 
 app.use(express.static(filePath));
 
 app.get("*", async (req, res) => {
-  res.sendFile(path.join(dirname, "./ui/dist/index.html"));
+  res.sendFile(path.join(dirname, "./../ui/dist/index.html"));
 });
 
 app.get("/possession", async (req, res) => {
