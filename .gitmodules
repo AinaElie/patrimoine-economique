@@ -1,0 +1,3 @@
+[submodule "front_patrimoine"]
+	path = ui
+	url = https://github.com/AinaElie/front_patrimoine.git
