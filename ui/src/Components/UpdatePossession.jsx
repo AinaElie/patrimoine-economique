@@ -57,11 +57,11 @@ export default function UpdatePossession() {
         <Form onSubmit={handleSubmit} className='row py-5 px-5'>
           <Form.Group className="mb-3 col col-6">
             <Form.Label>Libelle : </Form.Label>
-            <Form.Control type="text" name="libelle" value={newData.libelle} onChange={handleChange} required/>
+            <Form.Control type="text" name="libelle" value={newData.libelle} onChange={handleChange}/>
           </Form.Group>
           <Form.Group className="mb-3 col col-6">
             <Form.Label>Date fin : </Form.Label>
-            <Form.Control type="date" name="dateFin" value={newData.dateFin} onChange={handleChange} required/>
+            <Form.Control type="date" name="dateFin" value={newData.dateFin} onChange={handleChange}/>
           </Form.Group>
           <Button type='submit' className='col col-2 mx-3'>Update</Button>
         </Form>

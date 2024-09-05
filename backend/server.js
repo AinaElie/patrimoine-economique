@@ -22,7 +22,7 @@ app.get('/possession', async (req, res) => {
         const dataPrev = await readFile(filePath, 'utf8');
 
         if (dataPrev.status === 'OK') {
-            const data = await dataPrev.data
+            const data = await dataPrev.data[1].data;
             res.status(200).json(data);
         } else {
             res.status(500).json({ message: "Donne non trouver" })
@@ -42,7 +42,7 @@ app.post('/possession/create', async (req, res) => {
         const requeste = req.body;
 
         if (dataPrev.status === 'OK') {
-            const data = await dataPrev.data;
+            const data = await dataPrev.data[1].data;
             const possesseur = data.possesseur
             const possession = data.possessions
 
@@ -50,14 +50,14 @@ app.post('/possession/create', async (req, res) => {
                 possesseur: possesseur,
                 libelle: requeste.libelle,
                 valeur: parseInt(requeste.valeur),
-                dateDebut: new Date(requeste.dateDebut),
+                dateDebut: new Date(requeste.dateDebut) || new Date(),
                 dateFin: null,
                 tauxAmortissement: parseInt(requeste.tauxAmortissement)
             };
 
             possession.push(newPossession);
 
-            const insertion = await writeFile(filePath, data);
+            const insertion = await writeFile(filePath, dataPrev.data);;
  
             if (insertion.status === 'OK') {
                 res.status(200).json({ message: "Insertion avec success" });
@@ -91,13 +91,13 @@ app.put('/possession/:libelle/update', async (req, res) => {
         }
 
         if (dataPrev.status === 'OK') {
-            const data = await dataPrev.data;
+            const data = await dataPrev.data[1].data;
             const possession = data.possessions.find(p => p.libelle === newLibelle);
 
             possession.libelle = requeste.libelle;
             possession.dateFin = new Date(requeste.dateFin);
         
-            await writeFile(filePath, data);
+            await writeFile(filePath, dataPrev.data);
             res.status(200).json({message: possession});
         } else {
             res.status(500).json({ message: "Donne non trouver" })
@@ -126,12 +126,12 @@ app.put('/possession/:libelle/close', async (req, res) => {
         }
 
         if (dataPrev.status === 'OK') {
-            const data = await dataPrev.data;
+            const data = await dataPrev.data[1].data;
             const possession = data.possessions.find(p => p.libelle === newLibelle);
 
             possession.dateFin = new Date();
         
-            await writeFile(filePath, data);
+            await writeFile(filePath, dataPrev.data);
             res.status(200).json({message: possession});
         } else {
             res.status(500).json({ message: "Donne non trouver" })

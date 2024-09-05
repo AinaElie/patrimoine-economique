@@ -22,13 +22,20 @@ export default function CreatePossession() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const dateToday = new Date();
+        const formDataToSend = {
+            ...formData,
+            dateDebut: formData.dateDebut || dateToday
+        }
+        
         try {
             let response = await fetch('http://localhost:5000/possession/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formDataToSend),
             });
 
             if (response.ok) {
@@ -51,19 +58,19 @@ export default function CreatePossession() {
                 <Form onSubmit={handleSubmit} className='row py-4 px-5'>
                     <Form.Group className="mb-3 col col-6">
                         <Form.Label>Libelle : </Form.Label>
-                        <Form.Control type="text" name="libelle" value={formData.libelle} onChange={handleChange} required />
+                        <Form.Control type="text" name="libelle" value={formData.libelle} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3 col col-6">
                         <Form.Label>Valeur : </Form.Label>
-                        <Form.Control type="number" name="valeur" value={formData.valeur} onChange={handleChange} required />
+                        <Form.Control type="number" name="valeur" value={formData.valeur} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3 col col-6">
                         <Form.Label>Date debut : </Form.Label>
-                        <Form.Control type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} required />
+                        <Form.Control type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3 col col-6">
                         <Form.Label>Taux d'amortissement : </Form.Label>
-                        <Form.Control type="number" name="tauxAmortissement" value={formData.tauxAmortissement} onChange={handleChange} required/>
+                        <Form.Control type="number" name="tauxAmortissement" value={formData.tauxAmortissement} onChange={handleChange}/>
                     </Form.Group>
                     <Button type='submit' className='col col-2 mx-3'>Creer</Button>
                 </Form>
