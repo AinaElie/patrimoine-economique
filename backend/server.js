@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import { readFile, writeFile } from './data/index.js'
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
