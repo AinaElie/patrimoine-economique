@@ -10,6 +10,16 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+const fileData = fileURLToPath(import.meta.url);
+const dirname = path.dirname(fileData);
+const filePath = path.join(dirname, "./ui/dist");
+
+app.use(express.static(filePath));
+
+app.get("*", async (req, res) => {
+  res.sendFile(path.join(dirname, "./ui/dist/index.html"));
+});
+
 app.get("/possession", async (req, res) => {
   try {
     const fileData = fileURLToPath(import.meta.url);
