@@ -1,8 +1,8 @@
-import fs from 'node:fs/promises';
+import fs from "node:fs/promises";
 
 async function readFile(path) {
   try {
-    const data = await fs.readFile(path, { encoding: 'utf8' });
+    const data = await fs.readFile(path, { encoding: "utf8" });
     return {
       status: "OK",
       data: JSON.parse(data),
@@ -15,11 +15,10 @@ async function readFile(path) {
   }
 }
 
-
 async function writeFile(path, data) {
   try {
     await fs.writeFile(path, JSON.stringify(data), {
-      encoding: 'utf8',
+      encoding: "utf8",
     });
     return {
       status: "OK",
