@@ -7,7 +7,13 @@ import { readFile, writeFile } from "./data/index.js";
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://patrimoine-economique.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/possession", async (req, res) => {
